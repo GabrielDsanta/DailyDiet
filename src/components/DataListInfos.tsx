@@ -1,52 +1,13 @@
-import { useFocusEffect } from "@react-navigation/native";
-import { StorageMealGet } from "@storage/storageMeals";
 import { HStack, Text, VStack } from "native-base";
-import { useCallback, useState } from 'react'
 
 type DataListInfosProps = {
-    isLoading: boolean;
-    setIsLoading: (isLoading: boolean) => void;
+    total: number;
+    inDietTotal: number;
+    outDietTotal: number;
+    bestSequence: number;
 }
 
-export function DataListInfos({ isLoading, setIsLoading }: DataListInfosProps) {
-    const [total, setTotal] = useState(0)
-    const [inDietTotal, setInDietTotal] = useState(0)
-    const [outDietTotal, setOutDietTotal] = useState(0)
-    const [bestSequence, setBestSequecence] = useState(0)
-
-    useFocusEffect(useCallback(() => {
-        let newTotal = 0
-        let inDiet = 0
-        let outDiet = 0
-        let bestSequence = 0
-
-        async function callfetchInDietData() {
-            // setIsLoading(true)
-            const dataInStorage = await StorageMealGet()
-            dataInStorage.map((item) => {
-                item.meals.map((item2, index) => {
-                    if (item2.isInDiet === true) {
-                        inDiet++
-                        setInDietTotal(inDiet)
-                        if(item.meals[index + 1].isInDiet === true){
-                            bestSequence++
-                            bestSequence++
-                        }
-                    } else {
-                        outDiet++
-                        setOutDietTotal(outDiet)
-                    }
-
-                    newTotal++
-                    setTotal(newTotal)
-                })
-            })
-            setBestSequecence(bestSequence)
-            // setIsLoading(false)
-        }
-
-        callfetchInDietData()
-    }, []))
+export function DataListInfos({ total, inDietTotal, outDietTotal, bestSequence }: DataListInfosProps) {
 
     return (
         <VStack h="full" rounded="2xl" mt="-10px" py="6" px="8" bg="#FFF">
