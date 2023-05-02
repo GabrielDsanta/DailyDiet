@@ -3,12 +3,13 @@ import { InfoCard } from "@components/InfoCard";
 import { MealList } from "@components/MealList";
 import { NewSnackSession } from "@components/NewSnackSession";
 import { useDaily } from "@hooks/useDaily";
+import { StorageMealRemove } from "@storage/storageMeals";
 import { formattedDate } from "@utils/dateUtils";
 import { ScrollView, VStack } from "native-base";
 
 export function Home() {
     const { meals } = useDaily()
-
+    
     return (
         <VStack px={6} py={12}>
             <ScrollView
